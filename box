@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weather</title>
+    
+    <style>
+    body {
+  text-align: center;
+  border: 3px solid;
+  border-color: #2196f3;
+  border-style: groove;
+  font-family: monospace;
+  padding: 20px;
+  margin: 200px;
+  border-radius: 50px 50px;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 0, 0.5),
+      rgba(0, 0, 255, 0.5)
+    ),
+    url(https://static.vecteezy.com/system/resources/previews/000/063/309/original/weather-icons-vector.jpg);
+}
+h1,
+h2 {
+  color: black;
+  font-size: 20px;
+  box-shadow: #151170;
+}
+h2 {
+  font-weight: lighter;
+  font-size: 15px;
+}
+p {
+  font-weight: 100;
+}
+.submit {
+  cursor: pointer;
+  color: #2196f3;
+  border-radius: 20px;
+  border-style: #151170 solid;
+}
+.box {
+  background-color: rgb(186, 217, 238);
+  opacity: 0.7;
+  padding: 30px;
+  margin: auto;
+  border-radius: 20px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-rows: 30px 90px;
+  gap: 1px;
+  background-color: #2196f3;
+  padding: 1px 1px 1px 1px;
+  border-radius: 5px;
+}
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: none;
+  font-size: 16px;
+  color: #151170;
+  border-radius: 5px 5px;
+}
+</style>
+  </head>
+  <body>
+    <div class="box">
+      <form id="search-form">
+        <input
+          type="search"
+          placeholder="Type a city.."
+          autofocus="on"
+          autocomplete="off"
+          id="city-input"
+          class="form-control shadow-sm"
+        />
+        <input
+          type="submit"
+          value="Search"
+          class="form-control btn btn-primary shadow-sm"
+        />
+      </form>
+      <h1 id="city">Chicago Illinois 📍</h1>
+      <h2 id="date"></h2>
+      <br />
+      <h3>
+        🌤️
+        <div class="float-left">
+          <span class="temperature" id="temperature">19</span
+          ><span class="units">
+            <a href="#" id="celsius-link">°C</a> |
+            <a href="#" id="fahrenheit-link">°F</a>
+          </span>
+        </div>
+      </h3>
+
+      <div class="grid-container">
+        <div class="icon">⛅</div>
+        <div class="icon">🌤️</div>
+        <div class="icon">☁️</div>
+        <div class="icon">🌥️</div>
+        <div class="icon">☀️</div>
+        <div class="icon">🌧️</div>
+        <div>Mon <br />77° 53°</div>
+        <div>Tue <br />64° 52°</div>
+        <div>Wed <br />63° 55°</div>
+        <div>Thu <br />77° 57°</div>
+        <div>Fri <br />78° 61°</div>
+        <div>Sat <br />88° 71°</div>
+      </div>
+    </div>
+    
+    <script>
+    function formatDate(date) {
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  let dayIndex = date.getDay();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[dayIndex];
+
+  return `${day} ${hours}:${minutes}`;
+}
+
+function search(event) {
+  event.preventDefault();
+  let cityElement = document.querySelector("#city");
+  let cityInput = document.querySelector("#city-input");
+  cityElement.innerHTML = cityInput.value;
+}
+
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = 66;
+}
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = 19;
+}
+
+let dateElement = document.querySelector("#date");
+let currentTime = new Date();
+dateElement.innerHTML = formatDate(currentTime);
+
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", search);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", convertToCelsius);
+
+    </script>
+  </body>
+</html>
